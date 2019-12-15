@@ -1,0 +1,334 @@
+$mdc-theme-primary: #4169E1;
+$mdc-theme-secondary: #4169E1;
+$mdc-theme-background: #FFFFFF;
+
+@import "@material/elevation/mdc-elevation";
+@import "@material/typography/mdc-typography";
+@import "@material/textfield/mdc-text-field";
+@import "@material/button/mdc-button";
+@import "@material/fab/mdc-fab";
+@import "@material/dialog/mdc-dialog";
+
+@import "variables";
+
+*{
+    outline: none;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.list-data-dialog{
+    width: 100%;
+
+    .mdc-dialog__container{
+        width: 800px;
+    }
+
+    .mdc-dialog__surface{
+        width: 800px !important;
+        max-width: 1000px !important;
+        margin: 0;
+    }
+
+    table{
+        width: 90%;
+        margin: 0 auto;
+        opacity: 1;
+
+        svg{
+            cursor: pointer;
+        }
+    }
+}
+
+.set-old-data-dialog{
+    width: 100%;
+
+    form, .mdc-dialog__container{
+        width: 1100px;
+    }
+
+    .mdc-dialog__surface{
+        width: 1100px !important;
+        max-width: 1500px !important;
+        margin: 0;
+    }
+
+    input{
+        width: 50px;
+        border-radius: 4px;
+        border: 1px solid #919191;
+        padding: 0 2px;
+    }
+}
+
+.choose-container{
+    margin: 20px 0;
+    width: 100%;
+
+    button{
+        margin: 0 10px;
+        background: #919191 !important;
+
+        &.current{
+            background: #4169E1 !important;
+        }
+    }
+}
+
+.info-container{
+    margin: 30px auto 0 auto;
+    width: 95%;
+    max-width: 1200px;
+
+    .title{
+        margin-bottom: 10px;
+    }
+}
+
+.list-elements-button-container{
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+}
+
+.set-previous-data-container{
+    position: absolute;
+    bottom: 10px;
+    left: 20px;
+}
+
+.clear-data{
+    margin-top: 15px;
+
+    button{
+        background: #919191 !important;
+    }
+}
+
+.days-container{
+    button{
+        margin-top: 20px;
+    }
+}
+
+.d-none{
+    display: none !important;
+}
+
+body{
+    padding: 0;
+    position: relative;
+    background: #FEFEFE;
+    min-height: 97vh;
+    max-width: 1500px;
+    margin: 0 auto;
+
+    .container{
+        text-align: center;
+
+        svg{
+            width: 30px;
+            height: 30px;
+        }
+
+        a, link{
+            text-decoration: none;
+        }
+    }
+}
+
+$offset: 187;
+$duration: 1.4s;
+
+.spinner {
+    animation: rotator $duration linear infinite;
+}
+
+@keyframes rotator {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(270deg); }
+}
+
+@keyframes colors {
+    0% { stroke: #4285F4; }
+    25% { stroke: #DE3E35; }
+    50% { stroke: #F7C223; }
+    75% { stroke: #1B9A59; }
+    100% { stroke: #4285F4; }
+}
+
+@keyframes dash {
+    0% { stroke-dashoffset: $offset; }
+    50% {
+        stroke-dashoffset: $offset/4;
+        transform:rotate(135deg);
+    }
+    100% {
+        stroke-dashoffset: $offset;
+        transform:rotate(450deg);
+    }
+}
+
+.show-element {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s linear 0.2s, opacity 0.2s linear;
+
+    &.open{
+        visibility: visible;
+        opacity: 1;
+        transition-delay: 0s;
+    }
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: #FFFFFF;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    background-color: #FFFFFF;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #EAEAEA;
+}
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.fl-table {
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: normal;
+    border: none;
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 100%;
+    white-space: nowrap;
+    background-color: white;
+
+    td, th {
+        text-align: center;
+        padding: 8px;
+    }
+
+    td {
+        border-right: 1px solid #f8f8f8;
+        font-size: 12px;
+    }
+
+    .small{
+        th{
+            margin-top: 0;
+            font-size: 12px;
+        }
+    }
+
+    thead {
+        th{
+            color: #ffffff;
+            background: #919191;
+            font-size: 16px;
+            font-weight: normal;
+
+            &:nth-child(odd) {
+                color: #ffffff;
+                background: #4169E1;
+            }
+        }
+    }
+
+    tr{
+        &:nth-child(even) {
+            background: #6b8ae5;
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    .fl-table {
+        display: block;
+        width: 100%;
+
+        thead, tbody, thead th{
+            display: block;
+        }
+
+        thead{
+            th{
+                float: left;
+                text-align: left;
+                border-bottom: 1px solid #f7f7f9;
+
+                &:last-child{
+                    border-bottom: none;
+                }
+            }
+
+            tr{
+                display: table-cell;
+            }
+        }
+
+        tbody{
+            width: auto;
+            position: relative;
+            overflow-x: auto;
+
+            td{
+                display: block;
+                text-align: center;
+            }
+
+            tr{
+                &:nth-child(odd) {
+                    background: none;
+                }
+            }
+        }
+
+        td, th{
+            padding: 20px .625em .625em .625em;
+            height: 60px;
+            vertical-align: middle;
+            box-sizing: border-box;
+            overflow-x: hidden;
+            overflow-y: auto;
+            width: 120px;
+            font-size: 13px;
+            text-overflow: ellipsis;
+        }
+
+        tr{
+            &:nth-child(even) {
+                background: transparent;
+            }
+
+            td{
+                &:nth-child(odd) {
+                    background: #F8F8F8;
+                    border-right: 1px solid #E6E4E4;
+                }
+
+                &:nth-child(even) {
+                    border-right: 1px solid #E6E4E4;
+                }
+            }
+        }
+    }
+    .table-wrapper:before{
+        content: "Прокрутите горизонтально >";
+        display: block;
+        text-align: right;
+        font-size: 11px;
+        color: white;
+        padding: 0 0 10px;
+    }
+}
