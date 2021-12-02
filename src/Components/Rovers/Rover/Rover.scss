@@ -1,0 +1,97 @@
+.grid{
+    div{
+        display: grid;
+        justify-items: center;
+        align-items: center;
+
+        .buttons-line{
+            display: flex;
+            flex-direction: row;
+
+            button.selected{
+                background-color: #f2c94c;
+                color: #000;
+            }
+        }
+
+        h3{
+            color: #fff;
+            font-size: 13px;
+        }
+    }
+    .flex-buttons{
+        width: 95%;
+        margin: auto;
+        display: flex;
+        flex-direction: row;
+        div{
+            padding: 5px;
+
+            &:first-child{
+                flex: 1 1 auto;
+                justify-items: start;
+            }
+        }
+    }
+}
+
+body .ant-btn:empty{
+    display: unset;
+    width: unset;
+    visibility: unset;
+}
+
+body .ant-modal-body{
+    max-height: 600px;
+    overflow-y: scroll;
+}
+
+.history-block{
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #999;
+}
+
+table{
+    border: 1px solid #eee;
+    width: 95%;
+    margin: 20px auto;
+
+    th {
+        font-weight: bold;
+        padding: 5px;
+        background: #efefef;
+        border: 1px solid #dddddd;
+    }
+
+    td{
+        padding: 5px 10px;
+        border: 1px solid #eee;
+        text-align: left;
+        text-align: center;
+
+        input{
+            max-width: 40px;
+        }
+    }
+
+    tbody {
+        tr{
+            &:nth-child(odd){
+                background: #fff;
+            }
+
+            &:nth-child(even){
+                background: #F7F7F7;
+            }
+        }
+    }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

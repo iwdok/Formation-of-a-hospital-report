@@ -1,15 +1,12 @@
-import React             from "react";
-import ReactDOM          from "react-dom";
-import App               from "./components/App.js";
-import { Provider }      from 'mobx-react';
-import MainStore         from './stores/MainStore';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import * as serviceWorker from "./serviceWorker";
+import 'core-js';
 
-const Root = (
-    <Provider
-        mainStore={MainStore}
-    >
-        <App/>
-    </Provider>
+ReactDOM.render(
+  <App />,
+  document.getElementById("root")
 );
 
-ReactDOM.render(Root, document.getElementById("root"));
+serviceWorker.unregister();

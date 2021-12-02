@@ -1,16 +1,32 @@
+
 const path = require("path");
+const glob = require('glob');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-
+const PurgecssPlugin = require('purgecss-webpack-plugin')
+const webpack = require("webpack");
+// const PATHS = {
+//     src: path.join(__dirname, 'src')
+//   }
 module.exports = {
+    resolve: {
+        alias: {
+            ImgPath: path.resolve(__dirname, 'public/Assets/Images/')
+        },
+    },
     entry: "./src/index.js",
     output: {
         path: path.join(__dirname, "/dist"),
         filename: "index-bundle.js"
     },
     devServer: {
+        hot: true,
         port: 9001,
-        historyApiFallback: true
+        static: {
+            directory: path.join(__dirname, 'public'),
+        },
+        compress: true,
+        historyApiFallback: true,
     },
     module: {
         rules: [
@@ -30,54 +46,72 @@ module.exports = {
                     {
                         loader: 'sass-loader',
                         options: {
-                            includePaths: ['node_modules'],
+                            sassOptions: {
+                                includePaths: ['node_modules', 'public/assets/Fonts'],
+                            },
                         },
                     },
                 ]
             },
             {
+                test: /\.css$/,
+                exclude: /node_modules/,
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                    },
+                    "css-loader", // translates CSS into CommonJS
+                ]
+            },
+            {
                 test: /\.svg$/,
-                loader: 'svg-inline-loader'
+                use: [{
+                    loader: '@svgr/webpack',
+                    options: {
+                        svgoConfig: {
+                            plugins: [{ removeViewBox: false }]
+                        }
+                    }
+                }]
+            },
+            {
+                test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
+                include: [
+                    path.resolve(__dirname, './public/assets/Fonts'),
+                ],
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].[ext]',
+                            outputPath: 'fonts/',
+                        }
+                    }
+                ]
             },
             {
                 test: /\.(gif|png|jpe?g)$/i,
-                use: [
-                    'file-loader',
-                    {
-                        loader: 'image-webpack-loader',
-                        options: {
-                            mozjpeg: {
-                                progressive: true,
-                                quality: 65
-                            },
-                            optipng: {
-                                enabled: false,
-                            },
-                            pngquant: {
-                                quality: '65-90',
-                                speed: 4
-                            },
-                            gifsicle: {
-                                interlaced: false,
-                            },
-                            webp: {
-                                quality: 75
-                            }
-                        }
-                    },
-                ],
-            }
+                type: 'asset',
+            },
+            {
+                test: require.resolve('janus-gateway'),
+                loader: 'exports-loader',
+                options: {
+                    exports: 'Janus'
+                }
+            },
         ]
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: "./src/index.html",
-            favicon: "./src/favicon.ico"
+            template: "./public/index.html",
+            favicon: "./public/favicon.ico"
         }),
         new MiniCssExtractPlugin({
             filename: '[name].css',
             chunkFilename: '[id].css',
             ignoreOrder: false,
         }),
+        new webpack.ProvidePlugin({ adapter: ['webrtc-adapter', 'default'] }),
     ]
 };

@@ -1,0 +1,31 @@
+
+// .desktop-wide {
+// }
+// .desktop {
+// }
+// .desktop-square {
+//   @media screen and (max-width: 1024px), (max-height: 1024px) {
+//   }
+// }
+
+// .tablet {
+//   @media screen and (max-width: 768px) {
+//   }
+// }
+// .tablet-horizontal {
+//   @media screen and (max-width: 1024px) {
+//   }
+// }
+
+.mobile {
+    @media screen and (max-width: 375px) {
+      display: flex;
+    }
+  }
+  .mobile-horizontal {
+    display: none;
+    @media screen and (max-width: 425px) {
+      display: flex;
+    }
+  }
+  
