@@ -23,8 +23,7 @@ export function roverstore() {
     },
     cancelAdd(index){
       let fix_table_data = this.data[index];
-      fix_table_data.value = -parseInt(fix_table_data.value);
-      this.updateCell(fix_table_data);
+      this.updateCellDec(fix_table_data);
       this.data.splice(index, 1);
       this.seveToLocalStorage();
     },
@@ -101,6 +100,17 @@ export function roverstore() {
       this.table[type + gender][0]++;
       this.table[type + gender][1] += value;
       this.table[type + gender][age + 2]++;
+    },
+    updateCellDec(item){
+      let { type, age, gender, value } = item;
+      type = parseInt(type);
+      age = parseInt(age);
+      gender = parseInt(gender);
+      value = parseInt(value);
+      console.log(type, gender, age, value);
+      this.table[type + gender][0]--;
+      this.table[type + gender][1] -= value;
+      this.table[type + gender][age + 2]--;
     },
     clearData(){
       window.localStorage.removeItem('data');
